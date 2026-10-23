@@ -18,6 +18,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install Lua and Haskell build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.4 libghc-aeson-dev libghc-yaml-dev libghc-unordered-containers-dev libghc-wai-dev libghc-warp-dev libghc-wai-logger-dev libghc-http-types-dev libghc-random-dev
+          command -v luac
+          ghc-pkg list yaml
       - name: Run diagnostic validator tests
         run: python3 -m unittest discover -s tests -p 'test_diagnostic_validator.py' -v
       - name: Attempt full upstream build
